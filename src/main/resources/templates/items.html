@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Item List</title>
+</head>
+<body>
+<h2>Item List</h2>
+
+<form th:object="${itemSearch}" method="get" class="form-inline">
+    <div class="row">
+        <div class="col">
+            <input type="text" th:field="*{searchText}" class="form-control" placeholder="상품명"/>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-secondary mb-2">검색</button>
+        </div>
+    </div>
+
+</form>
+<table>
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Count</th>
+<!--            <th>Place</th>-->
+        </tr>
+    </thead>
+    <tbody>
+        <tr th:each="item : ${items}">
+            <td th:text="${item.id}">ID</td>
+            <th th:text="${item.getItemName}">Name</th>
+            <th th:text="${item.getQuantity}">Count</th>
+<!--            <th th:text="${item.place}">Place</th>-->
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

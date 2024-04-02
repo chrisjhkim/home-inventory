@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html th:replace="~{layoutMain :: layout(~{::title},~{::section})}"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>물품 관리</title>
+</head>
+<body>
+
+<section>
+
+<div class="container" style="max-width: 600px">
+    <div >
+        <h2>물품 목록</h2>
+    </div>
+
+    <div>
+        <form th:object="${itemSearch}" method="get" class="form-inline">
+            <div class="row">
+                <div class="col">
+                    <select th:field="*{searchType}" class="form-select">
+                        <option th:each="searchType : ${searchTypes}"
+                                th:value="${searchType.name()}"
+                                th:text="${searchType.displayName}">검색구분</option>
+
+                    </select>
+
+                </div>
+                <div class="col">
+                    <input type="text" th:field="*{searchText}" class="form-control" placeholder="상품명"/>
+                </div>
+                <div class="col">
+                    <button type="submit" class="btn btn-secondary mb-2">검색</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+
+  <div class="row">
+    <div class="col">
+      <button class="btn btn-primary float-end"
+              onclick="location.href='addForm.html'"
+              th:onclick="|location.href='@{/form/items/add}'|"
+              type="button">물품 등록</button>
+    </div>
+  </div>
+
+  <hr class="my-4">
+  <div>
+    <table class="table">
+      <thead>
+          <tr>
+            <th>물품명</th>
+            <th>위치</th>
+            <th>수량</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr th:each="item : ${itemList}">
+    <!--        <td><a href="item.html" th:href="@{/form/items/{itemId}(itemId=${item.id})}" th:text="${item.id}">회원id</a></td>-->
+            <td><a href="item.html" th:href="@{|/form/items/${item.id}|}" th:text="${item.getItemName}">물품명</a></td>
+            <td th:text="${item.place}">10000</td>
+            <td th:text="${item.getQuantity}">10</td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div> <!-- /container -->
+</section>
+
+</body>
+</html>
