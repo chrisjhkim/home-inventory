@@ -57,4 +57,4 @@ Project for the management of home inventory
 # 결과
 # 참고 문헌 및 출저
 
-이동욱 「스프링 부트와 AWS로 혼자 구현하는 웹 서비스」프리렉, 2019, p416
+이동욱,「스프링 부트와 AWS로 혼자 구현하는 웹 서비스」,프리렉,2019,p416
