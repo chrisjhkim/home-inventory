@@ -8,7 +8,6 @@ import jakarta.validation.constraints.NotNull;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Range;
-import org.hibernate.validator.constraints.ScriptAssert;
 
 import java.util.Arrays;
 import java.util.List;
@@ -41,7 +40,7 @@ public class ItemDTO {
 		return Item.builder()
 				.itemName(this.itemName)
 				.quantity(this.quantity)
-				.open(this.open)
+				.isNewItem(this.open)
 				.tags(String.join(",", this.tags))
 				.itemType(this.itemType)
 				.placeCode(this.placeCode)
@@ -54,7 +53,7 @@ public class ItemDTO {
 		result.id = item.getId();
 		result.itemName = item.getItemName();
 		result.quantity = item.getQuantity();
-		result.open = item.getOpen();
+		result.open = item.getIsNewItem();
 		if ( item.getTags() != null ) {
 			result.tags = Arrays.stream(item.getTags().split(",")).collect(Collectors.toList());
 
