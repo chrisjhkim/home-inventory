@@ -6,6 +6,9 @@ import com.chrisjhkim.sweethome.location.entity.Place;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -20,7 +23,12 @@ public class Item {
 	private int quantity;
 
 	private Boolean isNewItem;   // 미개봉 새 물품
-	private String tags; // tag 들
+
+
+
+	@OneToMany(mappedBy = "item")
+	private List<ItemTag> itemTags = new ArrayList<>();
+
 	private ItemType itemType;
 	private String placeCode;
 
@@ -35,7 +43,7 @@ public class Item {
 
 		this.isNewItem = itemUpdateRequest.getOpen();
 		if ( itemUpdateRequest.getTags() != null ) {
-			this.tags = String.join(",", itemUpdateRequest.getTags());
+//			this.tags = String.join(",", itemUpdateRequest.getTags());
 			// TODO : if 문 없어질 수 있을듯
 		}
 		this.itemType = itemUpdateRequest.getItemType();

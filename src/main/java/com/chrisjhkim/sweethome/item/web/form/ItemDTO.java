@@ -41,7 +41,7 @@ public class ItemDTO {
 				.itemName(this.itemName)
 				.quantity(this.quantity)
 				.isNewItem(this.open)
-				.tags(String.join(",", this.tags))
+//				.tags(String.join(",", this.tags)) // TODO
 				.itemType(this.itemType)
 				.placeCode(this.placeCode)
 				.build();
@@ -54,8 +54,8 @@ public class ItemDTO {
 		result.itemName = item.getItemName();
 		result.quantity = item.getQuantity();
 		result.open = item.getIsNewItem();
-		if ( item.getTags() != null ) {
-			result.tags = Arrays.stream(item.getTags().split(",")).collect(Collectors.toList());
+		if ( item.getItemTags() != null ) {
+//			result.tags = Arrays.stream(item.getTags().split(",")).collect(Collectors.toList()); // TODO
 
 		}
 		result.itemType = item.getItemType();
