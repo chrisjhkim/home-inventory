@@ -55,7 +55,7 @@ dependencies {
 	implementation 'org.mariadb.jdbc:mariadb-java-client'
 
 	// Database - MySQL
-	runtimeOnly 'com.mysql:mysql-connector-j'
+//	runtimeOnly 'com.mysql:mysql-connector-j'
 
 // https://mvnrepository.com/artifact/org.springframework.security/spring-security-web
 //	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '6.2.4'
