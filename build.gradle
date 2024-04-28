@@ -71,6 +71,10 @@ tasks.named('test') {
 	useJUnitPlatform()
 }
 
+jar {
+	enabled = false
+}
+
 // QueryDSL 추가 , 자동 생성된 'Q 클래스' gradle clean 으로 제거
 clean {
 	delete file('src/main/generated')
