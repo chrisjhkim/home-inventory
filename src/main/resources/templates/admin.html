@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>User List</title>
+  <script>
+    function enableSaveButton(email) {
+      document.getElementById('save-' + email).disabled = false;
+    }
+
+    function saveUser(email) {
+      const selectElement = document.getElementById('role-' + email);s
+      const selectedRole = selectElement.value;
+
+      const data = {
+        email: email,
+        role: selectedRole
+      };
+
+      fetch('/admin/updateRole', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      })
+              .then(response => response.text())
+              .then(data => {
+                alert('Role update successful for ' + email);
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+                alert('Failed to update role for ' + email);
+              });
+    }
+  </script>
+</head>
+<body>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Role</th>
+    <th>Action</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user : ${users}">
+    <td th:text="${user.name}"></td>
+    <td th:text="${user.email}"></td>
+    <td>
+      <select th:id="'role-' + ${user.email}"
+              th:attr="onchange=|enableSaveButton('${user.email}')|"
+
+      >
+        <option th:each="role : ${T(com.chrisjhkim.sweethome.member.entity.Role).values()}"
+                th:text="${role.getTitle()}"
+                th:value="${role.name()}"
+                th:selected="${role == user.role}"></option>
+      </select>
+    </td>
+    <td>
+      <button th:id="'save-' + ${user.email}"
+              th:attr="onclick=|saveUser('${user.email}')|"
+              disabled="disabled">Save</button>
+
+
+
+    </td>
+  </tr>
+  </tbody>
+</table>
+</body>
+</html>
