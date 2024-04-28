@@ -52,6 +52,8 @@ dependencies {
 
 	// Database - H2
 	runtimeOnly 'com.h2database:h2'
+	implementation 'org.mariadb.jdbc:mariadb-java-client'
+
 	// Database - MySQL
 	runtimeOnly 'com.mysql:mysql-connector-j'
 
