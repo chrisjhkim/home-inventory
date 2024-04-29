@@ -29,6 +29,7 @@ public class ItemDTO {
 	private List<String> tags; // tag 들
 	private ItemType itemType;
 	private String placeCode;
+	private String placeName;
 
 
 

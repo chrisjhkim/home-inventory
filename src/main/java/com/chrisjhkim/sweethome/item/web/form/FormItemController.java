@@ -3,20 +3,17 @@ package com.chrisjhkim.sweethome.item.web.form;
 import com.chrisjhkim.sweethome.item.dto.ItemSearchCond;
 import com.chrisjhkim.sweethome.item.entity.Item;
 import com.chrisjhkim.sweethome.item.service.ItemService;
-import com.chrisjhkim.sweethome.item.validation.ItemDTOValidator;
 import com.chrisjhkim.sweethome.item.validation.SaveCheck;
 import com.chrisjhkim.sweethome.item.validation.UpdateCheck;
 import com.chrisjhkim.sweethome.item.web.dto.SearchType;
+import com.chrisjhkim.sweethome.place.service.PlaceService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -29,6 +26,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class FormItemController {
 	private final ItemService itemService;
+	private final PlaceService placeService;
 //	private final ItemDTOValidator itemDTOValidator;
 //
 //	@InitBinder //  기본으로는 Controller 에 만 적용
@@ -68,9 +66,15 @@ public class FormItemController {
 		log.info("itemSearchCond = {}", itemSearchCond);
 
 		List<ItemDTO> itemList = itemService.findItems(itemSearchCond).stream()
-//		List<ItemDTO> itemList = itemService.findAllItems().stream()
 				.map(ItemDTO::from)
 				.collect(Collectors.toList());
+
+//		itemList.forEach(itemDTO -> {
+//			placeService.getPlaceByPlaceCode(itemDTO.getPlaceCode())
+//					.ifPresent(place -> itemDTO.setPlaceName(place.getName()))
+//		});
+
+
 		model.addAttribute("itemList", itemList);
 		return "item/form/items";
 	}

@@ -1,10 +1,10 @@
 package com.chrisjhkim.sweethome.location.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Builder
@@ -20,4 +20,7 @@ public class Room {
 	private String name;
 
 
+	@OneToMany(mappedBy = "room")
+	@Builder.Default
+	private List<Place> places = new ArrayList<>();
 }

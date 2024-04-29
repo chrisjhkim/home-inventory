@@ -12,9 +12,9 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-@AllArgsConstructor(access = AccessLevel.PACKAGE)
+//@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString // TODO : REMOVE
+@ToString
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -27,12 +27,13 @@ public class Item {
 
 
 	@OneToMany(mappedBy = "item")
+	@Builder.Default
 	private List<ItemTag> itemTags = new ArrayList<>();
 
 	private ItemType itemType;
 	private String placeCode;
 
-	@ManyToOne
+	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="place_id")
 	private Place place;
 
@@ -48,5 +49,17 @@ public class Item {
 		}
 		this.itemType = itemUpdateRequest.getItemType();
 		this.placeCode = itemUpdateRequest.getPlaceCode();
+	}
+
+	public Item(Long id, String itemName, int quantity, Boolean isNewItem, List<ItemTag> itemTags, ItemType itemType, String placeCode, Place place) {
+		this.id = id;
+		this.itemName = itemName;
+		this.quantity = quantity;
+		this.isNewItem = isNewItem;
+		this.itemTags = itemTags;
+		this.itemType = itemType;
+		this.placeCode = placeCode;
+		this.place = place;
+		place.addItem(this);
 	}
 }
