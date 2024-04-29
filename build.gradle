@@ -61,8 +61,14 @@ dependencies {
 //	implementation group: 'org.springframework.security', name: 'spring-security-web', version: '6.2.4'
 	implementation 'org.springframework.session:spring-session-jdbc'
 
+
+
 	compileOnly 'org.projectlombok:lombok'
 	annotationProcessor 'org.projectlombok:lombok'
+
+	testCompileOnly 'org.projectlombok:lombok'
+	testAnnotationProcessor 'org.projectlombok:lombok' // 테스트 의존성 추가
+
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation "org.springframework.security:spring-security-test"
 	compileOnly "org.springframework.security:spring-security-test"
