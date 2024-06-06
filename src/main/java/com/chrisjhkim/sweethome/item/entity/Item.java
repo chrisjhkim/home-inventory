@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Getter
 @Builder
-//@AllArgsConstructor(access = AccessLevel.PACKAGE)
+@AllArgsConstructor(access = AccessLevel.PACKAGE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @ToString
 public class Item {
@@ -51,15 +51,24 @@ public class Item {
 		this.placeCode = itemUpdateRequest.getPlaceCode();
 	}
 
-	public Item(Long id, String itemName, int quantity, Boolean isNewItem, List<ItemTag> itemTags, ItemType itemType, String placeCode, Place place) {
-		this.id = id;
-		this.itemName = itemName;
-		this.quantity = quantity;
-		this.isNewItem = isNewItem;
-		this.itemTags = itemTags;
-		this.itemType = itemType;
-		this.placeCode = placeCode;
+	public void setLocation(Place place){
+		if ( this.place != null ) {
+			this.place.getItems().remove(this);
+		}
 		this.place = place;
 		place.addItem(this);
 	}
+
+//	public Item(Long id, String itemName, int quantity, Boolean isNewItem, List<ItemTag> itemTags, ItemType itemType, String placeCode, Place place) {
+//		this.id = id;
+//		this.itemName = itemName;
+//		this.quantity = quantity;
+//		this.isNewItem = isNewItem;
+//		this.itemTags = itemTags;
+//		this.itemType = itemType;
+//		this.placeCode = placeCode;
+//		if ( place != null ) {
+//			setLocation(place);
+//		}
+//	}
 }

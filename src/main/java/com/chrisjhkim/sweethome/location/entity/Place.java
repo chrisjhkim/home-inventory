@@ -21,6 +21,9 @@ public class Place {
 	private String name;
 
 
+//	@OneToMany(mappedBy="childPlace")
+//	private List<Place> childPlaces = new ArrayList<>();
+
 
 	@OneToMany(mappedBy = "place")
 //	@Builder.Default
@@ -33,7 +36,8 @@ public class Place {
 	private Room room;
 
 	@Builder
-	Place(Long id, String name,
+	Place(Long id,
+	      String name,
 //	      List<Item> items,
 	      Room room) {
 		this.id = id;

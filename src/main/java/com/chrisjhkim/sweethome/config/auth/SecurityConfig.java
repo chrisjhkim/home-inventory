@@ -2,11 +2,12 @@ package com.chrisjhkim.sweethome.config.auth;
 
 import com.chrisjhkim.sweethome.member.entity.Role;
 import lombok.RequiredArgsConstructor;
-import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
 
 @RequiredArgsConstructor
@@ -20,13 +21,25 @@ public class SecurityConfig {
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-				.csrf(csrf -> csrf.disable()) // CSRF 보호 비활성화
+				.csrf(AbstractHttpConfigurer::disable) // CSRF 보호 비활성화
+//				.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable()) // CSRF 보호 비활성화
+//				.csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.ignoringRequestMatchers("/h2-console/**")) // CSRF 보호 비활성화
+
 				.headers(headers -> headers
-						.frameOptions().disable())
-				.authorizeRequests(authorize -> authorize
-						.requestMatchers("/admin/**",
-								"/css/**", "/images/**", "/js/**", "/h2-console/**", "/profile").permitAll()
-						.requestMatchers("/api/v1/**").hasRole(Role.USER.name()) // '/api/v1/**' 경로는 USER 역할이 필요
+						.frameOptions(Customizer.withDefaults()))
+//						.frameOptions().disable())
+				.authorizeHttpRequests(authorize -> authorize
+						// 웹 리소스 권한
+						.requestMatchers("/css/**", "/images/**", "/js/**", "/profile")
+							.permitAll()
+						// H2 DB console URL
+						.requestMatchers( "/h2-console/**")
+							.permitAll()
+
+						.requestMatchers("/api/v1/**")
+								.hasRole(Role.USER.name()) // '/api/v1/**' 경로는 USER 역할이 필요
+
+						.requestMatchers("/admin/**").hasRole(Role.MASTER.name())   // 관리자 권한들 MASTER 권한 필요
 						.requestMatchers("/test1").hasAnyRole(Role.MASTER.name())
 //						.requestMatchers("/admin/**").hasRole(Role.MASTER.name()) // '/api/v1/**' 경로는 USER 역할이 필요
 //						.requestMatchers("/admin/users").hasRole(Role.MASTER.getKey())
@@ -47,6 +60,7 @@ public class SecurityConfig {
 								.userService(customOAuth2UserService) // Custom OAuth2 사용자 서비스
 						)
 				)
+
 			;
 
 		return http.build();

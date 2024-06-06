@@ -38,7 +38,8 @@
         <div>
             <label for="quantity"
                    th:text="#{label.item.quantity}">수량</label>
-            <input type="text"
+            <input id="quantity"
+                   type="text"
                    th:field="*{quantity}"
                    th:errorclass="field-error"
                    class="form-control"
@@ -55,7 +56,8 @@
 <!--                <input type="checkbox" id="open" name="open" class="form-check-input">-->
 <!--                <input type="hidden" name="_open" value="on"> &lt;!&ndash; 히든 필드 추가 &ndash;&gt;-->
 <!--                <input type="checkbox" id="open" th:field="${item.open}" class="form-check-input">-->
-                <input type="checkbox"
+                <input id="open"
+                        type="checkbox"
                        th:field="*{open}"
                        class="form-check-input">
                 <label for="open"
@@ -68,10 +70,12 @@
             <div>Tags</div>
             <div th:each="tag : ${tags}"
                  class="form-check form-check-inline">
-                <input type="checkbox"
-                       th:field="*{tags}"
-                       th:value="${tag.key}"
-                       class="form-check-input">
+                <label>
+                    <input type="checkbox"
+                           th:field="*{tags}"
+                           th:value="${tag.key}"
+                           class="form-check-input">
+                </label>
                 <label th:for="${#ids.prev('tags')}"
                        th:text="${tag.value}"
                        class="form-check-label">태그</label>
@@ -85,10 +89,12 @@
 <!--            위처럼 직접 Enum 접근가능하다.-->
             <div th:each="type : ${itemTypes}"
                  class="form-check form-check-inline">
-                <input type="radio"
-                       th:field="*{itemType}"
-                       th:value="${type.name()}"
-                       class="form-check-input">
+                <label>
+                    <input type="radio"
+                           th:field="*{itemType}"
+                           th:value="${type.name()}"
+                           class="form-check-input">
+                </label>
                 <label th:for="${#ids.prev('itemType')}"
                        th:text="${type.description}"
                        class="form-check-label">BOOK</label>
@@ -98,12 +104,14 @@
         <!-- SELECT -->
         <div>
             <div>위치</div>
-            <select th:field="*{placeCode}" class="form-select">
-                <option value="">==위치 선택==</option>
-                <option th:each="placeCode : ${placeCodes}"
-                        th:value="${placeCode.code}"
-                        th:text="${placeCode.displayName}">안방 옷장</option>
-            </select>
+            <label>
+                <select th:field="*{placeCode}" class="form-select">
+                    <option value="">==위치 선택==</option>
+                    <option th:each="placeCode : ${placeCodes}"
+                            th:value="${placeCode.code}"
+                            th:text="${placeCode.displayName}">안방 옷장</option>
+                </select>
+            </label>
         </div>
         <hr class="my-4">
 

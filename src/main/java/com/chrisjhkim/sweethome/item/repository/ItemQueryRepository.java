@@ -4,6 +4,7 @@ import com.chrisjhkim.sweethome.item.dto.ItemSearchCond;
 import com.chrisjhkim.sweethome.item.entity.Item;
 import com.chrisjhkim.sweethome.item.entity.QItem;
 import com.querydsl.core.BooleanBuilder;
+import com.querydsl.core.Tuple;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
@@ -41,6 +42,9 @@ public class ItemQueryRepository {
 
 		log.info("builder = {}", builder);
 
+//		List<Tuple> fetch = query.select(item)
+//				.from(item)
+//				.fetch();
 		return query
 				.select(item)
 				.from(QItem.item)

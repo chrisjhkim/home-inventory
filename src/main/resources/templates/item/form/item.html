@@ -37,7 +37,8 @@
     <div>미개봉 새 물품</div>
     <div>
         <div class="form-check">
-            <input type="checkbox"
+            <input id="open"
+                   type="checkbox"
                    th:field="${item.open}"
                    class="form-check-input" disabled>
             <label for="open"
@@ -49,10 +50,12 @@
     <div>
         <div>Tags</div>
         <div th:each="tag : ${tags}" class="form-check form-check-inline">
-            <input type="checkbox"
-                   th:field="${item.tags}"
-                   th:value="${tag.key}"
-                   class="form-check-input">
+            <label>
+                <input type="checkbox"
+                       th:field="${item.tags}"
+                       th:value="${tag.key}"
+                       class="form-check-input">
+            </label>
             <label th:for="${#ids.prev('tags')}"
                    th:text="${tag.value}"
                    class="form-check-label">서울</label>
@@ -63,11 +66,13 @@
     <div>
         <div>물품 종류</div>
         <div th:each="type : ${itemTypes}" class="form-check form-check-inline">
-            <input type="radio"
-                   th:field="${item.itemType}"
-                   th:value="${type.name()}"
-                   class="form-check-input"
-                   disabled>
+            <label>
+                <input type="radio"
+                       th:field="${item.itemType}"
+                       th:value="${type.name()}"
+                       class="form-check-input"
+                       disabled>
+            </label>
             <label th:for="${#ids.prev('itemType')}"
                    th:text="${type.description}"
                    class="form-check-label">BOOK</label>
@@ -77,12 +82,14 @@
     <!-- SELECT -->
     <div>
         <div>위치</div>
-        <select th:field="${item.placeCode}" class="form-select" disabled>
-            <option value="">==위치 선택==</option>
-            <option th:each="placeCode : ${placeCodes}"
-                    th:value="${placeCode.code}"
-                    th:text="${placeCode.displayName}">안방 옷장</option>
-        </select>
+        <label>
+            <select th:field="${item.placeCode}" class="form-select" disabled>
+                <option value="">==위치 선택==</option>
+                <option th:each="placeCode : ${placeCodes}"
+                        th:value="${placeCode.code}"
+                        th:text="${placeCode.displayName}">안방 옷장</option>
+            </select>
+        </label>
     </div>
 
 

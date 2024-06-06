@@ -1,4 +1,4 @@
-package com.chrisjhkim.sweethome.item.web.form;
+package com.chrisjhkim.sweethome.location;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
